@@ -5,7 +5,9 @@ import Country from './Country'
 const Countries = ({ filteredCountries }) => {
     const rows = () => filteredCountries.map(country => {
         console.log('country:', country);
-        return <li key={country.name}>{country.name}</li>
+        return (<li key={country.name}>{country.name}
+            <button onClick={setFilteredCountries}>Show</button>
+        </li>)
     })
     
     if(filteredCountries.length >10) {
@@ -17,5 +19,7 @@ const Countries = ({ filteredCountries }) => {
     }
     return (<div>{rows()}</div>)
 }
+
+const setFilteredCountries = ()
 
 export default Countries

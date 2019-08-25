@@ -1,4 +1,5 @@
 import React from 'react'
+import phonebookServices from '../services/phonebook'
 
 const AddContact = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber}) => {
 
@@ -10,17 +11,42 @@ const AddContact = ({persons, setPersons, newName, setNewName, newNumber, setNew
         }
         // setPersons(persons.concat(newPersonObj)) 
         
-        persons.find((person) => person.name === newPersonObj.name) === undefined ?
-        setPersons(persons.concat(newPersonObj)) : alert(`${newName} is in contacts already`)
-        setNewName('')
-        setNewNumber('')
+        const addNewPersonToContacts = person => {
+          setNewName('')
+          setNewNumber('')
+          phonebookServices
+            .create(newPersonObj)
+            .then(returnedPerson => {
+              setPersons(persons.concat(returnedPerson))
+          })
+
+        }
+        const changePhoneNumber = (newPersonObj) => {
+          const changeConfirmed = window.confirm(`${newName} is in contacts already do you want to change phone number?`)
+          if(changeConfirmed) {
+            const person =  persons.find(person => person.name === newPersonObj.name)
+            const changedPerson = { ...person, number: newPersonObj.number }
+            phonebookServices
+              .update(person.id,changedPerson)
+            phonebookServices
+              .getAll()
+              .then(response => setPersons(response))
+          }
+        }
+
+      persons.find((person) => person.name === newPersonObj.name) === undefined ? 
+      addNewPersonToContacts(newPersonObj) : changePhoneNumber(newPersonObj)
+        
         //console.log('Button clicked: newPersonObj: ',newPersonObj);
+
+
+
     }
+
 
     const handleNewContact = (event) => {
         console.log(event.target.value)
         setNewName(event.target.value)
-    
       }
     
       const handleNewNumber = (event) => {

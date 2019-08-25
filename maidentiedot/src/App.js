@@ -6,6 +6,8 @@ import Countries from './components/Countries'
 const App = () => {
     const [newFilter, setNewFilter] = useState('');
     const [allCountries, setAllCountries] = useState([])
+    
+
 
     useEffect(() => {
         console.log('effect')

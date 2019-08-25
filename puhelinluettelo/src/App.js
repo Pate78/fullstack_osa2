@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Contacts from './components/Contacts'
 import Filter from './components/Filter'
 import AddContact from './components/AddContact'
+import phonebookServices from './services/phonebook'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -12,11 +12,12 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
+    phonebookServices
+      .getAll()
       .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+        // console.log('promise fulfilled')
+        // console.log(response);
+        setPersons(response)
       })
   }, [])
 
@@ -37,7 +38,7 @@ const App = () => {
         setNewNumber={setNewNumber}
         />
       <h2>Numbers:</h2>
-      <Contacts contacts={filteredPersons} />
+      <Contacts contacts={filteredPersons} setPersons={setPersons} />
       <div>debug: {newName}</div>
       <div>debug: {newNumber}</div>
     </div>
