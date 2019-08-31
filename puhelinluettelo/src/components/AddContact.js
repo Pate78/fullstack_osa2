@@ -28,19 +28,25 @@ const AddContact = ({persons, setPersons, newName, setNewName, newNumber, setNew
             const changedPerson = { ...person, number: newPersonObj.number }
             phonebookServices
               .update(person.id,changedPerson)
-            phonebookServices
-              .getAll()
-              .then(response => setPersons(response))
+              .then(response => {
+                console.log('response in changePhoneNumber: ', response);
+                setPersons(persons.map(person => 
+                  person.id !== newPersonObj.id ? person : response.data))
+              })
+            console.log('changedPerson: ', changedPerson);
+            // phonebookServices
+            //   .getAll()
+            //   .then(returnedPersons => {
+            //     console.log('returnedPerson:', returnedPersons);
+            //     setPersons(returnedPersons)
+            //   })
+
           }
         }
-
       persons.find((person) => person.name === newPersonObj.name) === undefined ? 
       addNewPersonToContacts(newPersonObj) : changePhoneNumber(newPersonObj)
         
         //console.log('Button clicked: newPersonObj: ',newPersonObj);
-
-
-
     }
 
 

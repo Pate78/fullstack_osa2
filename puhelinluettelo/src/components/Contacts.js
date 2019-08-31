@@ -17,7 +17,7 @@ const Contacts = ({ contacts, setPersons }) => {
 }
 
 const Person = ( {person, setPersons} ) => {
-    console.log('person.id: ', person.id);
+    // console.log('person.id: ', person.id);
     return (
         <li>
             {person.name} {person.number} <RemovePersonButton person={person} setPersons={setPersons}/>
