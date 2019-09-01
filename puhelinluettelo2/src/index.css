@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.notification {
+  font-size: 16px;
+  background-color: aqua;
+  color: blue;
+  border: 10px;
+  border-color:green;
+  border-width: 10px;
+  padding: 10px;
+  border-spacing: 15px;
+  margin: 10px;
+}

@@ -3,6 +3,8 @@ import Contact from './components/Contact'
 import Filter from './components/Filter'
 import Contacts from './components/Contacts';
 import phonebookService from './services/PhonebookService'
+import Notification from './components/Notification'
+import './index.css'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -11,6 +13,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('Uusi Nimi')
   const [ newPhoneNumber, setNewPhoneNumber ] = useState('040-1234 567')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ newNotification, setNewNotification ] = useState('Uusi ilmoitus')
 
   useEffect(() => {
     console.log('effect')
@@ -27,17 +30,39 @@ const App = () => {
   const addPerson = (event) => {
       event.preventDefault()
       console.log('Add person clicked', event.target.value);
-      const newPerson = {name: newName, number: newPhoneNumber}
-      console.log('find person result: ', persons.find(person => person.name === newPerson.name));
       
-      if(persons.find(person => person.name === newPerson.name) !== undefined) {
-          alert(`Person ${newPerson.name} already found`)
+      console.log('find person result: ', persons.find(person => person.name === newName));
+      const foundPerson = persons.find(person => person.name === newName)
+
+      if(foundPerson !== undefined) {
+          if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
+              console.log('Person found. Changing number confirmed');
+              const modifiedPerson = {...foundPerson, number:newPhoneNumber}
+              phonebookService
+                .update(modifiedPerson)
+                .then(response => console.log('App.update.response: ', response)
+                
+                    // {
+                    // console.log('App.update person response: ', response)
+                    
+                //     // setPersons(persons.map(person => person.id === response.id ? response : person))
+                // }
+                )
+          }
+
       } else {
+          const newPerson = {name: newName, number: newPhoneNumber}
           phonebookService
             .create(newPerson)
             .then(response => {
-                console.log('addPerson.response', response.data)
+                console.log('addPerson.response.data', response.data)
                 setPersons(persons.concat(response.data))
+                const message = `Person ${newPerson.name} added to contacts`
+                console.log('addPerson.message');
+                setNewNotification(message)
+                setTimeout(() =>{
+                   setNewNotification(null) 
+                },5000)
             })
       }
   }
@@ -55,6 +80,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={newNotification} />
       <Filter newFilter={newFilter} setNewFilter={setNewFilter}/>
       <form onSubmit={addPerson}>
         <div>

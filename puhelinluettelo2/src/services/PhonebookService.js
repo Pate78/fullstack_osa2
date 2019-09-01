@@ -18,10 +18,13 @@ const create = newPerson => {
     // })
 }
 
-const update = person => {
+const update = (person) => {
     const url = baseUrl+'/'+person.id
     console.log('PhonebookService.update.url: ', url);
-    axios.put(url, person).then(response => response.data)
+    console.log('phonebookService.update.person: ', person);
+    const request = axios.put(url, person)
+    request.then(response => response.data)
+    
 }
 
 const deleteContact = (props) => {
