@@ -18,22 +18,32 @@ const create = newPerson => {
     // })
 }
 
-const update = (person) => {
-    const url = baseUrl+'/'+person.id
+const update = (props) => {
+    const url = baseUrl+'/'+props.person.id
     console.log('PhonebookService.update.url: ', url);
-    console.log('phonebookService.update.person: ', person);
-    const request = axios.put(url, person)
-    request.then(response => response.data)
-    
+    console.log('phonebookService.update.person: ', props.person);
+    const request = axios.put(url, props.person)
+    request.then(response => {
+        console.log('phonebookService.update.response.data: ', response.data);
+        
+        props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
+    })
 }
 
 const deleteContact = (props) => {
-    console.log('PhonebookService.deleteContact.props', props)
+    console.log('PhonebookService.deleteContact.props.setNewNotification', props.setNewNotification)
     const url = baseUrl+'/'+props.person.id
     console.log('PhonebookService.delete.url: ', url);
     axios
         .delete(url,props.person.id)
-        .then(res => props.setPersons(props.persons.filter(person1 => props.person.id !== person1.id)))
+        .then(res => {
+            const message = `Person ${props.person.name} deleted`
+            props.setNewNotification(message)
+            setTimeout(() =>{
+                props.setNewNotification(null) 
+            },5000)
+            props.setPersons(props.persons.filter(person1 => props.person.id !== person1.id))
+        })
 }
 
 export default {

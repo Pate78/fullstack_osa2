@@ -37,17 +37,29 @@ const App = () => {
       if(foundPerson !== undefined) {
           if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
               console.log('Person found. Changing number confirmed');
+              const message = `Person ${newName} number changed`
+              setNewNotification(message)
+              setTimeout(() =>{
+                setNewNotification(null) 
+              },5000)
               const modifiedPerson = {...foundPerson, number:newPhoneNumber}
+              const props = {
+                  person:modifiedPerson, 
+                  setPersons:setPersons, 
+                  persons:persons,
+                  newNotification,
+                  setNewNotification
+                }
               phonebookService
-                .update(modifiedPerson)
-                .then(response => console.log('App.update.response: ', response)
+                .update(props)
+                // .then(response => console.log('App.update.response: ', response)
                 
                     // {
                     // console.log('App.update person response: ', response)
                     
                 //     // setPersons(persons.map(person => person.id === response.id ? response : person))
                 // }
-                )
+                // )
           }
 
       } else {
@@ -102,7 +114,12 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <Contacts persons={persons} newFilter={newFilter} persons={persons} setPersons={setPersons}/>
+      <Contacts
+        persons={persons}
+        newFilter={newFilter}
+        persons={persons}
+        setPersons={setPersons}
+        setNewNotification={setNewNotification}/>
       <div>debug: {newName}</div>
       <div>debug: {newPhoneNumber}</div>
     </div>
