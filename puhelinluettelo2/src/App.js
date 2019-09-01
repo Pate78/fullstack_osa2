@@ -76,7 +76,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <Contacts persons={persons} newFilter={newFilter} setPersons={setPersons}/>
+      <Contacts persons={persons} newFilter={newFilter} persons={persons} setPersons={setPersons}/>
       <div>debug: {newName}</div>
       <div>debug: {newPhoneNumber}</div>
     </div>

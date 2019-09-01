@@ -1,9 +1,9 @@
 import React from 'react'
 import phonebookService from '../services/PhonebookService'
 
-const Remove = ({ person, setPersons }) => {
+const Remove = ({ person, persons, setPersons }) => {
     const removePerson = ()=> {
-        const props = {person:person, setPersons:setPersons}
+        const props = {person:person, setPersons:setPersons, persons:persons}
         console.log('Remove.removePerson.props: ', props);
         if(window.confirm(`Really delete ${person.name}?`)===true) {
             console.log('Remove person confirmed');

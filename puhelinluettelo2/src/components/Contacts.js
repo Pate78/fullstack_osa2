@@ -9,7 +9,7 @@ const Contacts = ({ persons, newFilter, setPersons }) => {
     const rows = () => personsToShow.map(person => {
         // console.log('Single person in list:',person);
         return (
-            <Contact key={person.name} person={person} setPersons={setPersons}/>
+            <Contact key={person.name} person={person} persons={persons} setPersons={setPersons}/>
         )
     })
 

@@ -30,6 +30,7 @@ const deleteContact = (props) => {
     console.log('PhonebookService.delete.url: ', url);
     axios
         .delete(url,props.person.id)
+        .then(res => props.setPersons(props.persons.filter(person1 => props.person.id !== person1.id)))
 }
 
 export default {
