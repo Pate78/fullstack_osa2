@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () => {
     const request = axios.get(baseUrl)
@@ -19,15 +19,22 @@ const create = newPerson => {
 }
 
 const update = (props) => {
-    const url = baseUrl+'/'+props.person.id
+    // kommentoitu, koska mongon kanssa lisääminen ei toimi jos teen ao koodilla
+    // const url = baseUrl+'/'+props.person.id
+    // console.log('PhonebookService.update.url: ', url);
+    // console.log('phonebookService.update.person: ', props.person);
+    // const request = axios.put(url, props.person)
+    // request.then(response => {
+    //     console.log('phonebookService.update.response.data: ', response.data);
+    //     props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
+    // })
+
+    const url = baseUrl
     console.log('PhonebookService.update.url: ', url);
     console.log('phonebookService.update.person: ', props.person);
-    const request = axios.put(url, props.person)
-    request.then(response => {
-        console.log('phonebookService.update.response.data: ', response.data);
-        
-        props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
-    })
+    props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
+    return axios.post(url, props.person)
+
 }
 
 const deleteContact = (props) => {

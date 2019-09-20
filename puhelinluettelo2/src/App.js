@@ -7,10 +7,12 @@ import Notification from './components/Notification'
 import './index.css'
 
 const App = () => {
+  // console.log('App starting...');
+  
   const [ persons, setPersons] = useState([
     { name: 'Arto Hellas', phoneNumber: '050-6969 123' }
   ]) 
-  const [ newName, setNewName ] = useState('Uusi Nimi')
+  const [ newName, setNewName ] = useState('Teppo Testaaja')
   const [ newPhoneNumber, setNewPhoneNumber ] = useState('040-1234 567')
   const [ newFilter, setNewFilter ] = useState('')
   const [ newNotification, setNewNotification ] = useState('Uusi ilmoitus')
@@ -29,7 +31,7 @@ const App = () => {
   //Add person event handler
   const addPerson = (event) => {
       event.preventDefault()
-      console.log('Add person clicked', event.target.value);
+      console.log('App.js - addPerson starting...');
       
       console.log('find person result: ', persons.find(person => person.name === newName));
       const foundPerson = persons.find(person => person.name === newName)
