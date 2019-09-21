@@ -8,9 +8,10 @@ const Contacts = ({ persons, newFilter, setPersons, newNotification, setNewNotif
 
     const rows = () => personsToShow.map(person => {
         console.log('Single person.id + person.name in list:', person.id, person.name);
+        const id = person.id
         return (
             <Contact 
-                key={person.id}
+                key={person.name}
                 person={person}
                 persons={persons}
                 setPersons={setPersons}

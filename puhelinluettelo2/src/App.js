@@ -36,35 +36,35 @@ const App = () => {
       console.log('find person result: ', persons.find(person => person.name === newName));
       const foundPerson = persons.find(person => person.name === newName)
 
-      if(foundPerson !== undefined) {
-          if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
-              console.log('Person found. Changing number confirmed');
-              const message = `Person ${newName} number changed`
-              setNewNotification(message)
-              setTimeout(() =>{
-                setNewNotification(null) 
-              },5000)
-              const modifiedPerson = {...foundPerson, number:newPhoneNumber}
-              const props = {
-                  person:modifiedPerson, 
-                  setPersons:setPersons, 
-                  persons:persons,
-                  newNotification,
-                  setNewNotification
-                }
-              phonebookService
-                .update(props)
-                // .then(response => console.log('App.update.response: ', response)
+      // if(foundPerson !== undefined) {
+      //     if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
+      //         console.log('Person found. Changing number confirmed');
+      //         const message = `Person ${newName} number changed`
+      //         setNewNotification(message)
+      //         setTimeout(() =>{
+      //           setNewNotification(null) 
+      //         },5000)
+      //         const modifiedPerson = {...foundPerson, number:newPhoneNumber}
+      //         const props = {
+      //             person:modifiedPerson, 
+      //             setPersons:setPersons, 
+      //             persons:persons,
+      //             newNotification,
+      //             setNewNotification
+      //           }
+      //         phonebookService
+      //           .update(props)
+      //           // .then(response => console.log('App.update.response: ', response)
                 
-                    // {
-                    // console.log('App.update person response: ', response)
+      //               // {
+      //               // console.log('App.update person response: ', response)
                     
-                //     // setPersons(persons.map(person => person.id === response.id ? response : person))
-                // }
-                // )
-          }
+      //           //     // setPersons(persons.map(person => person.id === response.id ? response : person))
+      //           // }
+      //           // )
+      //     }
 
-      } else {
+      // } else {
           const newPerson = {name: newName, number: newPhoneNumber}
           phonebookService
             .create(newPerson)
@@ -78,7 +78,7 @@ const App = () => {
                    setNewNotification(null) 
                 },5000)
             })
-      }
+      // }
   }
 
   // Handle input change
