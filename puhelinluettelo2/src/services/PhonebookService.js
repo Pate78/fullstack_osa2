@@ -20,7 +20,7 @@ const create = newPerson => {
 
 const update = (props) => {
     const url = baseUrl+'/'+props.person.id
-    console.log('PhonebookService.update.url: ', url);
+    console.log('PhonebookService.update.baseurl + person.id: ', baseUrl,props.person.id);
     console.log('phonebookService.update.person: ', props.person);
     const request = axios.put(url, props.person)
     request.then(response => {
