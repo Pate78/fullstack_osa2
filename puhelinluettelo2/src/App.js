@@ -10,7 +10,7 @@ const App = () => {
   // console.log('App starting...');
   
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', phoneNumber: '050-6969 123' }
+    // { name: 'Arto Hellas', phoneNumber: '050-6969 123' }
   ]) 
   const [ newName, setNewName ] = useState('Teppo Testaaja')
   const [ newPhoneNumber, setNewPhoneNumber ] = useState('040-1234 567')
@@ -36,35 +36,34 @@ const App = () => {
       console.log('find person result: ', persons.find(person => person.name === newName));
       const foundPerson = persons.find(person => person.name === newName)
 
-      // if(foundPerson !== undefined) {
-      //     if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
-      //         console.log('Person found. Changing number confirmed');
-      //         const message = `Person ${newName} number changed`
-      //         setNewNotification(message)
-      //         setTimeout(() =>{
-      //           setNewNotification(null) 
-      //         },5000)
-      //         const modifiedPerson = {...foundPerson, number:newPhoneNumber}
-      //         const props = {
-      //             person:modifiedPerson, 
-      //             setPersons:setPersons, 
-      //             persons:persons,
-      //             newNotification,
-      //             setNewNotification
-      //           }
-      //         phonebookService
-      //           .update(props)
-      //           // .then(response => console.log('App.update.response: ', response)
-                
-      //               // {
-      //               // console.log('App.update person response: ', response)
-                    
-      //           //     // setPersons(persons.map(person => person.id === response.id ? response : person))
-      //           // }
-      //           // )
-      //     }
+      if(foundPerson !== undefined) {
+          if(window.confirm(`Person ${newName} already found. Do you want to change number?`) === true) {
+              console.log('Person found. Changing number confirmed');
+              const message = `Person ${newName} number changed`
+              setNewNotification(message)
+              setTimeout(() =>{
+                setNewNotification(null) 
+              },5000)
+              const modifiedPerson = {...foundPerson, number:newPhoneNumber}
+              const props = {
+                  person:modifiedPerson, 
+                  setPersons:setPersons, 
+                  persons:persons,
+                  newNotification,
+                  setNewNotification
+                }
+              phonebookService
+                .update(props)
+                // .then(response => {
+                //   console.log('App.update.response: ', response)
+                //   console.log('App.update person response: ', response)
+                //   setPersons(persons.map(person => person.id === response.id ? response : person))
+                // })
+          }
 
-      // } else {
+      } else {
+        console.log('addPerson person not found from contacts. Adding new...');
+        
           const newPerson = {name: newName, number: newPhoneNumber}
           phonebookService
             .create(newPerson)
@@ -78,7 +77,7 @@ const App = () => {
                    setNewNotification(null) 
                 },5000)
             })
-      // }
+      }
   }
 
   // Handle input change

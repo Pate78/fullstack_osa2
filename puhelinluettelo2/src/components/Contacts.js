@@ -7,11 +7,11 @@ const Contacts = ({ persons, newFilter, setPersons, newNotification, setNewNotif
     const personsToShow = persons.filter(person => person.name.includes(newFilter))
 
     const rows = () => personsToShow.map(person => {
-        console.log('Single person.id + person.name in list:', person.id, person.name);
+        // console.log('Single person.id + person.name in list:', person.id, person.name);
         const id = person.id
         return (
             <Contact 
-                key={person.name}
+                key={person.id}
                 person={person}
                 persons={persons}
                 setPersons={setPersons}

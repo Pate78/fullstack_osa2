@@ -11,29 +11,29 @@ const getAll = () => {
 }
 
 const create = newPerson => {
-    // const request = axios.post(baseUrl, newPerson)
-    // return request.then(response => {
-    //     console.log('PhonebookService.create.response.data: ', response.data);
+    const request = axios.post(baseUrl, newPerson)
+    return request.then(response => {
+        console.log('PhonebookService.create.response.data: ', response.data);
         return axios.post(baseUrl, newPerson)
-    // })
+    })
 }
 
 const update = (props) => {
-    // kommentoitu, koska mongon kanssa lisääminen ei toimi jos teen ao koodilla
-    // const url = baseUrl+'/'+props.person.id
-    // console.log('PhonebookService.update.url: ', url);
-    // console.log('phonebookService.update.person: ', props.person);
-    // const request = axios.put(url, props.person)
-    // request.then(response => {
-    //     console.log('phonebookService.update.response.data: ', response.data);
-    //     props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
-    // })
-
-    const url = baseUrl
+    const url = baseUrl+'/'+props.person.id
     console.log('PhonebookService.update.url: ', url);
     console.log('phonebookService.update.person: ', props.person);
-    props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
-    return axios.post(url, props.person)
+    const request = axios.put(url, props.person)
+    request.then(response => {
+        console.log('phonebookService.update.response.data: ', response.data);
+        props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
+        // return response.data
+    })
+
+    // const url = baseUrl
+    // console.log('PhonebookService.update.url: ', url);
+    // console.log('phonebookService.update.person: ', props.person);
+    // props.setPersons(props.persons.map(person1 => props.person.id !== person1.id ? person1 : props.person))
+    // return axios.post(url, props.person)
 
 }
 
